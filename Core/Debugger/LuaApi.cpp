@@ -1049,12 +1049,14 @@ int LuaApi::GetState(lua_State *lua)
 	s.Stream(*_emu->GetConsole().get(), "", -1);
 	
 	//Add some more Lua-specific values
+	bool paused = _emu->IsPaused();
 	uint32_t frameCount = _emu->GetFrameCount();
 	uint32_t masterClock = _emu->GetMasterClock();
 	uint32_t clockRate = _emu->GetMasterClockRate();
 	string consoleType = string(magic_enum::enum_name<ConsoleType>(_emu->GetConsoleType()));
 	string region = string(magic_enum::enum_name<ConsoleRegion>(_emu->GetRegion()));
 	
+	SV(paused);
 	SV(clockRate);
 	SV(consoleType);
 	SV(region);
